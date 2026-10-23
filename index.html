@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Личный кабинет</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5; padding: 40px 20px; color: #111;
+    }
+    h1 { text-align: center; margin-bottom: 20px; font-size: 1.8rem; }
+
+    nav {
+      max-width: 1200px; margin: 0 auto 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.95rem;
+    }
+    nav a { color: #2563eb; text-decoration: none; margin-right: 12px; }
+    nav a:hover { text-decoration: underline; }
+    nav button {
+      background: none; border: 1px solid #ccc;
+      padding: 4px 10px; border-radius: 6px; cursor: pointer;
+    }
+
+    /* ===== Блок профиля ===== */
+    .profile {
+      max-width: 1200px;
+      margin: 0 auto 32px;
+      background: white;
+      padding: 24px 28px;
+      border-radius: 12px;
+      border: 1px solid #e5e5e5;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; font-weight: 600;
+      flex-shrink: 0;
+    }
+    .profile-info h2 {
+      font-size: 1.2rem; margin-bottom: 4px;
+    }
+    .profile-info p {
+      color: #555; font-size: 0.95rem;
+    }
+
+    /* ===== Заголовок раздела ===== */
+    .section-title {
+      max-width: 1200px;
+      margin: 0 auto 20px;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    /* ===== Сетка карточек ===== */
+    #courses-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 1100px) {
+      #courses-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 800px) {
+      #courses-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      #courses-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #e5e5e5;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+    }
+    .card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+    .card p { color: #555; margin-bottom: 8px; line-height: 1.4; font-size: 0.9rem; }
+    .direction {
+      display: inline-block; background: #f0f0f0;
+      padding: 4px 10px; border-radius: 20px;
+      font-size: 0.75rem; margin-bottom: 12px; color: #333;
+      align-self: flex-start;
+    }
+    .seats { margin-top: auto; padding-top: 12px; font-weight: 500; color: #059669; font-size: 0.9rem; }
+    .seats.empty { color: #dc2626; }
+
+    .btn {
+      margin-top: 12px; width: 100%; padding: 9px;
+      border: none; border-radius: 8px; cursor: pointer;
+      font-size: 0.95rem; font-weight: 500;
+      background: #2563eb; color: white;
+    }
+    .btn:hover:not(:disabled) { background: #1d4ed8; }
+    .btn:disabled { background: #d1d5db; color: #6b7280; cursor: not-allowed; }
+    .btn.danger { background: #dc2626; }
+    .btn.danger:hover:not(:disabled) { background: #b91c1c; }
+
+    .empty { text-align: center; color: #777; margin-top: 40px; grid-column: 1 / -1; }
+    .error { color: #dc2626; text-align: center; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <h1>Личный кабинет</h1>
+
+  <nav>
+    <div><a href="index.html">← Каталог курсов</a></div>
+    <div><button id="logout">Выйти</button></div>
+  </nav>
+
+  <!-- Профиль (данные прописаны) -->
+  <div class="profile" id="profile">
+    <div class="avatar" id="avatar">А</div>
+    <div class="profile-info">
+      <h2 id="profile-name">Анна Смирнова</h2>
+      <p id="profile-email">anna.smirnova@example.com</p>
+    </div>
+  </div>
+
+  <!-- Заголовок раздела -->
+  <h2 class="section-title">Вы записаны на эти курсы:</h2>
+
+  <!-- Сетка карточек (2 штуки, прописаны) -->
+  <div id="courses-grid">
+
+    <!-- Карточка 1: Графический дизайн -->
+    <div class="card">
+      <div class="direction">Графический дизайн</div>
+      <h3>Графический дизайн</h3>
+      <p>Основы композиции, работа с цветом, типографика.</p>
+      <p><strong>Преподаватель:</strong> Кузнецов Д.А.</p>
+      <p class="seats">Свободно: 9 из 15</p>
+      <button class="btn danger">Отказаться</button>
+    </div>
+
+    <!-- Карточка 2: Motion-дизайн -->
+    <div class="card">
+      <div class="direction">Motion-дизайн в After Effects</div>
+      <h3>Motion-дизайн</h3>
+      <p>Анимация логотипов, инфографики и промо-роликов.</p>
+      <p><strong>Преподаватель:</strong> Васильева Е.Н.</p>
+      <p class="seats">Свободно: 6 из 12</p>
+      <button class="btn danger">Отказаться</button>
+    </div>
+
+  </div>
+
+</body>
+</html>
